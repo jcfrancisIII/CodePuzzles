@@ -1,0 +1,82 @@
+html {
+    color: #333;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+.needanupgrade {
+    margin: 0.2em 0;
+    background: red;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   ========================================================================== */
+
+body {
+    font: 16px/26px 'Lato', Helvetica, Helvetica Neue, Arial;
+	background: #f4f4f4;
+}
+
+.wrapper {
+    width: 90%;
+    margin: 0 5%;
+}
+
+h1 {
+	margin: 0;
+}
+
+.result input[name=sentence] {
+	width: 100%;
+	max-width: 1000px;
+	margin: 0 auto;
+	line-height: 1.2em;
+	text-align: center;
+	font-size: 1.5em;
+	font-weight: 400;
+}
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+
+}
+
+@media only screen and (max-width: 800px) {
+
+}
+
+@media only screen and (min-width: 1140px) {
+
+/* ===============
+    Maximal Width
+   =============== */
+
+    .wrapper {
+        width: 1026px; /* 1140px - 10% for margins */
+        margin: 0 auto;
+    }
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}

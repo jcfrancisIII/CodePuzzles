@@ -1,0 +1,59 @@
+<html>
+<head></head>
+<body>
+<script>
+//remove spaces and hyphens and split by every three 
+function isEven(n) 
+{
+   return n % 2 == 0;
+}
+
+function isOdd(n)
+{
+   return Math.abs(n) % 2 == 1;
+}
+
+function shuffle(arr) {
+	
+	console.log('initial array ' + arr);
+	
+	var newArr = [];
+	
+	for (var i=0; i<arr.length; i++) {
+		if ( isEven(i) ) {
+			newArr.unshift(arr[i]);
+			console.log('new array ' + newArr + ' step ' + i);
+		} else {
+			newArr.push(arr[i]);
+			console.log('new array ' + newArr + ' step ' + i);
+		}
+	}
+	
+	console.log('final array ' + newArr);
+	
+	return newArr;
+}
+
+var deck = ['goblin','troll','warlord','witchdoctor','techies','minion','chief','bruiser']
+
+function keepShuffling(arr) {
+	
+	var newArr = shuffle(arr);
+	
+	var counter = 0;
+	
+	while ( counter < 10 ) {
+		console.log('shuffle count' + counter);
+		counter++;
+		newArr = shuffle(newArr);
+	}
+	
+	console.log(counter);
+	
+}
+
+keepShuffling(deck);
+
+</script>
+</body>
+</html>

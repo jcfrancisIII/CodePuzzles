@@ -1,0 +1,125 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Immortal Origin</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <!--[if lt IE 9]>
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+            <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+        <![endif]-->
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="header-container">
+            <header class="wrapper clearfix">
+                <h1 class="title"><img class="logo" src="img/logo.png"/></h1>
+            </header>
+        </div>
+
+        <div class="main-container">
+            <div class="main wrapper clearfix">
+			
+				<h1 class="note">Our website is closed however you can find our products at these online retailers:</h1>
+				
+				<ul class="navWrap float-list clearfix">
+					<li class="nav ebay">
+						<a href="http://www.ebay.com/usr/immortalorigin" target="_blank">
+							<img src="img/ebayLogoW.png">
+						</a>
+					</li>
+					<li class="nav amazon">
+						<a href="http://www.amazon.com/gp/aag/main/ref=olp_merch_name_2?ie=UTF8&asin=B007R4X3AG&isAmazonFulfilled=0&seller=A1OOW621A6XB2P" target="_blank">
+							<img src="img/amazonLogoW.png">
+						</a>
+					</li>
+				</ul>
+
+            </div>
+        </div>
+
+        <div class="footer-container">
+            <footer class="wrapper">
+                If you need immediate assistance, please <a href="mailto:immortalorigin@hotmail.com">Email Us</a>
+            </footer>
+        </div>
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+        <script>
+		function countTo(amount) {
+	for (var i = 1; i <= amount; i++)
+	{
+		setTimeout(function (second) {
+			return function() {console.log(second)};
+		}(i), i * 1000);
+	}
+}
+
+countTo(10);
+			$(function(){
+			
+				var $window = $( window ),
+					title = $('.title'),
+					main = $('.main'),
+					mainH = main.children('h1'),
+					footer = $('.footer-container'),
+					windowHt,
+					hPad,
+					mainPad,
+					totalHt;
+
+				var pad = function(){
+					windowHt = $window.height();
+					hPad = windowHt * 0.05;
+					mainPad = windowHt * 0.1;
+					
+					title.css('padding-top', hPad);
+					mainH.css({
+						'padding-bottom': mainPad,
+						'padding-top': mainPad						
+						});
+				};
+				
+				var foot = function(){
+					windowHt = $window.height();
+					totalHt = title.outerHeight() + main.outerHeight() + 100;
+					if ( windowHt > totalHt) {
+						footer.css('position','fixed');
+					} else {
+						footer.css('position','relative');
+					}
+				}
+				
+				pad();
+				foot();
+				
+				var timer_id;
+
+				$window.resize(function() {
+
+					clearTimeout(timer_id);
+
+					timer_id = setTimeout(function() {
+
+						pad();
+						foot();
+						
+					}, 300);
+				});
+				
+			});
+		</script>
+    </body>
+</html>

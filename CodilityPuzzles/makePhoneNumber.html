@@ -1,0 +1,29 @@
+<html>
+<head></head>
+<body>
+<script>
+//remove spaces and hyphens and split by every three 
+function solution(S) {
+	var smallS = S.replace(/\s|-/g,'');
+	var newS = '';
+	var newA = [];
+
+	console.log(smallS);
+	
+	for (var i=0; i<smallS.length; i++) {
+		if ( i && i%3 === 0) {
+			newA.push('-');
+		}
+		newA.push(smallS.substring(i, i+1));
+	}
+	
+	newS = newA.join('');
+	
+	console.log(newS);
+}
+
+solution('15151-  -161- 161234');
+
+</script>
+</body>
+</html>
