@@ -1,0 +1,148 @@
+@import "css/common.less";
+
+h2 { 
+  display:block; 
+  letter-spacing:0.06em;
+  font-size:1em;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  border-bottom:1px solid @baseBlue;
+}
+
+h3 { 
+  font-family:"Lato", "Helvetica Neue", Arial, sans-serif; 
+  text-align:left; 
+  font-size: 0.813em; 
+  color: #000;
+  letter-spacing:0.06em;
+  line-height: 1.846em;
+  font-weight: 400;
+  margin:0;
+}
+
+h4 { 
+  font-family:"Lato", "Helvetica Neue", Arial, sans-serif; 
+  font-size: 0.875em; 
+  letter-spacing:0.06em; 
+  line-height: 1.71428em;
+  text-transform:uppercase;
+  font-weight: 700;
+  margin:0 0 0 0.7em;
+}
+
+h5 { 
+  font-family:"Lato", "Helvetica Neue", Arial, sans-serif; 
+  font-size: 0.875em; 
+  letter-spacing:0.06em; 
+  line-height: 1.71428em;
+  text-transform:uppercase;
+  font-weight: 700;
+  margin:0.7em 0.7em 1.71428em 0.8em;
+}
+
+
+/* ==========================================================================
+   Continue styles
+   ========================================================================== */
+
+footer {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+  background-color: #fff;
+  margin-top: 60px;
+}
+
+
+
+
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media only screen and (min-width: 480px) {
+
+}
+
+@media only screen and (max-width: 800px) {
+
+
+}
+
+@media only screen and (min-width: 1140px) {
+
+/* ===============
+    Maximal Width
+   =============== */
+
+
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    *,
+    *:before,
+    *:after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

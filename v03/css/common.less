@@ -1,0 +1,281 @@
+import "common.less";
+
+@baseBlue: #2f96fd;
+@lightBlue: rgba(81, 184, 255, 0.93);
+@lighterBlue: @lightBlue + #111;
+
+//flexbox mixins
+.flexbox {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+.flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+.order($val) {
+  -webkit-box-ordinal-group: $val;  
+  -moz-box-ordinal-group: $val;     
+  -ms-flex-order: $val;     
+  -webkit-order: $val;  
+  order: $val;
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.row {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 1.5em;
+ *zoom: 1;
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.hidden {
+    display: none;
+}
+
+/* ==========================================================================
+   Main classes
+   ========================================================================== */
+
+::-moz-selection{ 
+  background:@baseBlue; 
+  color:#fff; 
+}
+
+::selection { 
+  background:@baseBlue; 
+  color:#fff; 
+} 
+
+body { 
+  font-size:100%; 
+  line-height:1.5em; 
+  margin:0; 
+  font-family:"Lato", "Helvetica Neue", Arial, sans-serif; font-weight: 400;
+}
+
+a { 
+  cursor: pointer; 
+  text-decoration:none; 
+  color:#000000;
+}
+
+a:hover { 
+  color:@baseBlue;
+}
+
+  /* ==========================================================================
+     Nav styles
+     ========================================================================== */
+
+header {
+    color:#fff; 
+    background-color: @baseBlue; 
+    padding: 0.97em 1.5em 0.75em;
+    box-sizing: border-box;
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .inner {
+      margin: 0px;
+      padding: 0px;
+      position: relative;
+    }
+
+    a.logo {
+      font-family:"Oswald", "HelveticaNeue-Condensed", "Helvetica Neue", Arial, sans-serif; 
+      font-size: 2em; 
+      text-transform: uppercase; 
+      letter-spacing:0.06em;
+      margin:0;
+      font-weight: 400;
+      line-height: 1em;
+      text-decoration: none;
+      &:hover {
+        color: #fff;
+      }
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      letter-spacing: 0.06em;
+    }
+
+    nav > ul {
+        float: right;
+    }
+
+    nav > ul > li {
+        text-align: center;
+        line-height: 2em;
+        margin-left: 70px;
+    }
+
+    nav > ul li ul li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid @lighterBlue;
+        padding: 10px 0px;
+    }
+
+    nav ul li.hover {
+        cursor: pointer;
+        position: relative;
+    }
+    nav ul li.hover > ul {
+        display: block;
+    }
+    nav ul li:hover > a {
+        color: #fff;
+    }
+    nav > ul > li > a {
+        cursor: pointer;
+        display: block;
+        outline: none;
+        width: 100%;
+        text-decoration: none;
+    }
+
+    nav > ul > li {
+        float: left;
+    }
+    nav a {
+        color: white;
+    }
+    nav > ul li ul {
+        display: none;
+        position: absolute;
+        left: -50%;
+        top: 100%;
+        width: 200%;
+        z-index: 2;
+        background-color: @lightBlue;
+    }
+    nav > ul li ul li > a {
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    [type="checkbox"], label {
+        display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      nav ul {
+          display: none;
+      }
+
+      label {
+          display: block;
+          width: 30px;
+          height: 40px;
+          cursor: pointer;
+          position: absolute;
+          right: 0px;
+          top: -2px;
+          -webkit-tap-highlight-color: rgba(0,0,0,0);
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          -o-user-select: none;
+          user-select: none;
+      }
+
+      label:after{
+        content:'';
+        display: block;
+        width: 30px;
+        height: 1px;
+        background: #fff;
+        margin: 7px 0px;
+        box-shadow: 0px 10px 0px #fff, 0px 20px 0px #fff;
+      }
+
+      [type="checkbox"]:checked ~ ul {
+          display: block;
+          z-index: 9999;
+          position: absolute;
+          right: -1.5em;
+          left: -1.5em;
+          top: 48px;
+      }
+
+      nav ul a {
+          border-bottom: 1px solid @lighterBlue;
+          padding: 0.5em 1.5em;
+      }
+
+      nav li.dropdown {
+        background: none;
+        > a {
+          display: none;
+        }
+      }
+
+      nav ul li {
+          display: block;
+          float: none;
+          width: 100%;
+          text-align: left;
+          background: @lightBlue;
+          text-indent: 20px;
+      }
+
+      nav > ul > li {
+          margin-left: 0px;
+      }
+
+      nav > ul li ul {
+          display: block;
+          position: relative;
+          width: 100%;
+          z-index: 9999;
+          float: none;
+          left: auto;
+          top: auto;
+          background: none;
+      }
+
+      nav > ul li ul li {
+          display: block;
+          float: none;
+          border-bottom: 0px solid #fff;
+          padding: 0px;
+          text-align: left;
+      }
+      
+      nav > ul li ul li > a {
+          display: block;
+      }
+  
+  }
+
+}

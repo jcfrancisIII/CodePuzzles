@@ -1,0 +1,21 @@
+{
+  "name": "v03",
+  "version": "1.0.0",
+  "description": "Static Webpack site",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "css-loader": "^0.21.0",
+    "less-loader": "^2.2.1",
+    "less": "^2.5.3",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.2"
+  },
+  "devDependencies": {
+    "webpack": "^1.12.2"
+  },
+  "scripts": {
+    "start": "webpack ./entry.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
