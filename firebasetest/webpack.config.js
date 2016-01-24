@@ -1,17 +1,18 @@
-var autoprefixer = require('autoprefixer');
-var precss       = require('precss');
+var path = require('path');
 
 module.exports = {
   entry: './components/App.js',
   output: {
-  	path: './build',
+  	path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/assets/'       
+    publicPath: '/public/'       
   },
   module: {
     loaders: [
-      { test: /\.css$/, loader: "style!css!postcss" },
-      { test: /\.less$/, loader: "style!css!less" },
+      { test: /\.css$/, loader: "style!css" },
+      { test: /\.less$/, 
+        loader: "style!css!less"
+      },
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
@@ -21,8 +22,5 @@ module.exports = {
         }
       }
     ]
-  },
-  postcss: function () {
-    return [autoprefixer, precss];
   }
 };

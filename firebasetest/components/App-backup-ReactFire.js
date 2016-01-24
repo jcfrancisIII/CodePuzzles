@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var Firebase = require("firebase");
 var ReactFireMixin = require("reactfire");
 
-var Canvas = require('./Canvas');
+var TodoList = require('./TodoList');
 
 require('./../css/style.less');
 
