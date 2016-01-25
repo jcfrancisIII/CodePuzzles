@@ -51,7 +51,7 @@
 	var Firebase = __webpack_require__(159);
 	var ReactFireMixin = __webpack_require__(160);
 
-	var TodoList = __webpack_require__(161);
+	var Canvas = __webpack_require__(161);
 
 	__webpack_require__(162);
 
@@ -70,37 +70,15 @@
 	  componentWillMount: function componentWillMount() {
 	    this.bindAsArray(ref, 'items');
 	  },
-	  onChange: function onChange(e) {
-	    var textString = e.target.value;
-	    this.setState({ text: textString });
-	  },
-	  handleSubmit: function handleSubmit(e) {
-	    e.preventDefault();
-	    this.firebaseRefs.items.push({
-	      text: this.state.text,
-	      id: Date.now()
-	    });
-	    this.setState({ text: '' });
-	  },
 	  render: function render() {
 	    return React.createElement(
 	      'div',
 	      { id: 'App' },
+	      React.createElement(Canvas, { items: this.state.items }),
 	      React.createElement(
 	        'h3',
 	        null,
-	        '6 Car'
-	      ),
-	      React.createElement(TodoList, { items: this.state.items, key: this.state.items.id }),
-	      React.createElement(
-	        'form',
-	        { onSubmit: this.handleSubmit },
-	        React.createElement('input', { onChange: this.onChange, value: this.state.text, type: 'text' }),
-	        React.createElement(
-	          'button',
-	          null,
-	          'Add #' + (this.state.items.length + 1)
-	        )
+	        '6 Car Canvas'
 	      )
 	    );
 	  }
@@ -20355,31 +20333,63 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
 
-	var TodoList = React.createClass({
-	  displayName: 'TodoList',
+	var Canvas = React.createClass({
+	  displayName: 'Canvas',
 
-	  render: function render() {
-	    var createItem = function createItem(item) {
-	      return React.createElement(
-	        'div',
-	        { className: 'piece', key: item.id },
-	        React.createElement(
-	          'span',
-	          { className: 'pieceText' },
-	          item.text
-	        )
-	      );
+	  getInitialState: function getInitialState() {
+	    return {
+	      carW: '2760',
+	      carH: '1840',
+	      divideBy: '80'
 	    };
+	  },
+	  getWinSize: function getWinSize() {
+	    var winW = window.innerWidth;
+	    var winH = winW * 0.667;
+	    this.setState({ carW: winW, carH: winH });
+	    console.log(this.state.carW);
+	  },
+	  componentWillMount: function componentWillMount(nextProps) {},
+	  componentDidMount: function componentDidMount() {
+	    paper.install(window);
+	    this.canvas = this.refs.car;
+	    paper.setup(this.canvas);
+	    this.url = './imgs/car.jpg';
+	    this.raster = new Raster({
+	      source: this.url,
+	      position: view.center
+	    });
+	    var img = new Image();
+	    img.src = this.url;
+	    img.onload = this.getWinSize;
+	    window.addEventListener('resize', function () {
+	      this.getWinSize();
+	    }.bind(this));
+	  },
+	  drawSquares: function drawSquares() {
+	    var squareWidth = this.state.carW / this.state.divideBy;
+	    for (var k = 0; k < this.state.carW; k += squareWidth) {
+	      this.rectangle = new Rectangle(new Point(k, 0), new Size(squareWidth, squareWidth));
+	      this.shape = new Shape.Rectangle(this.rectangle);
+	      this.shape.fillColor = new Color(0, 0, 0);
+	    }
+	  },
+	  render: function render() {
+	    var winW = document.getElementsByTagName('body')[0].width;
 	    return React.createElement(
 	      'div',
-	      { className: 'carWrap' },
-	      this.props.items.map(createItem)
+	      { ref: 'carWrap' },
+	      React.createElement('canvas', { ref: 'car', className: 'car', style: {
+	          width: this.state.carW,
+	          height: this.state.carH
+	        } })
 	    );
 	  }
 	});
-	//<span className='pieceClose' onCLick={this.props.remove.bind(item)}>×</span>
-	module.exports = TodoList;
+
+	module.exports = Canvas;
 
 /***/ },
 /* 162 */
