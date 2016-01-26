@@ -1,54 +1,67 @@
-<template id='popinput' lang='jade'>
-div(class='formWrap')
-  form(id='form', v-on:submit.prevent='addItem')
-    - var valOne = 'Go Trevor'
-    - var valTwo = 'Yo Trev'
-    - var valThree = 'Hi T'
-    input(type='radio', id='one', value=valOne, v-model='picked', checked=false)
-    label(for='one')= valOne
-    input(type='radio', id='two', value=valTwo, v-model='picked', checked=false)
-    label(for='two')= valTwo
-    input(type='radio', id='three', value=valThree, v-model='picked', checked=false)
-    label(for='three')= valThree
-    div {{typeof picked === 'string' ? picked : ''}}
-    input(type='submit', value='Claim it')
+<template lang='jade'>
+  div(class='formWrap')
+    form(id='form', v-on:submit.stop.prevent='addItem')
+      input(type='radio', id='one', value='1', v-model='picked', checked=false)
+      label(for='one') Go Trevor
+      input(type='radio', id='two', value='2', v-model='picked', checked=false)
+      label(for='two') Yo Trev
+      input(type='radio', id='three', value='3', v-model='picked', checked=false)
+      label(for='three') Hi T
+      div {{said}}
+      input(type='submit', value='Claim it')
 </template>
 
 <script>
-  import Vue from 'vue'
-  import Firebase from 'firebase'
+  import {path} from '.././assets/GetData.js'
 
-  /**
-   * Setup firebase sync
-   */
-  var baseURL = 'https://6car.firebaseIO.com/'
-  var Msgs = new Firebase(baseURL + 'msgs')
-
-  /**
-   * Create Vue app
-   */
-  var popinput = Vue.component(popinput, {
-    template: '#popinput',
-    // initial data
-    data: function () {
+  export default {
+    props: {
+      cindex: Number,
+      open: Boolean,
+      store: Array
+    },
+    data () {
       return {
         picked: {
         }
       }
     },
+    computed: {
+      said () {
+        let picked = this.picked
+
+        if (picked === '1') {
+          return 'Go Trevor'
+        } else if (picked === '2') {
+          return 'Yo Trev'
+        } else if (picked === '3') {
+          return 'Hi T'
+        }
+      },
+      isValidId () {
+        return true
+      }
+    },
     methods: {
-      addItem: function () {
-        console.log('additem submit')
-        Msgs.push({
-          msg: this.picked,
-          id: 'one'
-        })
-        this.picked = {}
+      addItem () {
+        if (this.isValidId) {
+          path.push({
+            msg: this.picked,
+            position: this.cindex
+          }, function (error) {
+            if (error) {
+              alert('db error: ' + error)
+            } else {
+              console.log(this.store[this.store.length - 1].msg)
+            }
+          }.bind(this))
+
+          this.picked = {}
+          this.open = false
+        }
       }
     }
-  })
-
-  export default popinput
+  }
 
 </script>
 

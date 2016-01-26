@@ -1,16 +1,25 @@
 <template lang="jade">
-  div(id="app")
+  div(id="appWrap")
     hello
-    popinput
+    pop-triggers(v-bind:store='store')
+    pre {{$data | json}}
 </template>
 
 <script>
 import Hello from './components/Hello'
-import PopInput from './components/PopInput'
+import PopTriggers from './components/PopTriggers'
+import {store} from './assets/GetData.js'
+
 export default {
+  data () {
+    return {
+      store: store,
+      test: 'test'
+    }
+  },
   components: {
     Hello,
-    'popinput': PopInput
+    PopTriggers
   }
 }
 </script>
@@ -18,5 +27,6 @@ export default {
 <style lang='less'>
 body {
   font-family: Helvetica, sans-serif;
+  font-size: 20px;
 }
 </style>
