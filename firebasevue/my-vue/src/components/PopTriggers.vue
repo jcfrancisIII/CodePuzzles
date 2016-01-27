@@ -10,6 +10,7 @@
         v-bind:cindex='pindex'
         v-bind:open.sync='open'
         v-bind:store='store'
+        v-bind:nubBoxes='nubBoxes'
       )
     div(v-else) Select a square to claim
 </template>
@@ -24,7 +25,7 @@ export default {
   data () {
     return {
       open: false,
-      pindex: 10,
+      pindex: 0,
       nubBoxes: 20
     }
   },
@@ -33,9 +34,9 @@ export default {
   },
   methods: {
     toggle (e) {
+      this.pindex = parseInt(e.target.attributes.index.value, 10)
       if (this.open) {
-        this.pindex = parseInt(e.target.attributes.index.value, 10)
-        return
+        return false
       }
       this.open = !this.open
     }
