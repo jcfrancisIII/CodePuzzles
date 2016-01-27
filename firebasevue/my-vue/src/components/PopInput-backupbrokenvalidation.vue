@@ -1,34 +1,16 @@
 <template lang='jade'>
   div(class='formWrap')
     form(id='form', v-on:submit.prevent='addItem')
-      input(
-        type='radio'
-        id='one'
-        value='1'
-        v-model='picked'
-        checked=false
-      )
+      input(type='radio', id='one', value='1', v-model='picked', checked=false)
       label(for='one') Go Trevor
-      input(
-        type='radio'
-        id='two'
-        value='2'
-        v-model='picked'
-        checked=false
-      )
+      input(type='radio', id='two', value='2', v-model='picked', checked=false)
       label(for='two') Yo Trev
-      input(
-        type='radio'
-        id='three'
-        value='3'
-        v-model='picked'
-        checked=false
-      )
+      input(type='radio', id='three', value='3', v-model='picked', checked=false)
       label(for='three') Hi T
-      div {{cindex}}
       div {{said}}
       input(type='submit', value='Claim it')
       ul.errors
+        li(v-show='validation.pickDoesntExists') Choose a message to post! Duh.
         li(v-show='validation.positionFull') Oops, someone claimed your square...
           button(v-on:click='open = false') Claim a different square
 </template>
@@ -48,6 +30,7 @@
         picked: {
         },
         validation: {
+          pickDoesntExists: false,
           positionFull: false
         }
       }
@@ -65,49 +48,64 @@
         }
       },
       isValidPosition () {
-        var pickedPosition = this.cindex
-        console.log(pickedPosition)
-        // check database for matching position with existing message (truthy if it doesnt match)
-        var positionBool = this.store.some(function (item) {
-          if (pickedPosition === item.position && item.msg === 0) {
-            console.log('true msg ' + item.msg + ' position ' + item.position)
+        let pickedPosition = this.cindex
+
+        // check database for matching position (truthy if it doesnt match)
+        return this.store.every(function (item) {
+          console.log(item.position)
+          if (item.position !== pickedPosition) {
             return true
+          } else {
+            return false
           }
         })
-
-        return positionBool
       },
-      nonePicked () {
-        let picked = parseInt(this.picked, 10) || 0
+      isPicked () {
 
-        console.log(picked)
-        if (picked) {
+        // check if they picked a message
+        if (this.picked) {
+          console.log('pick doesnt exist ' + this.validation.pickDoesntExists)
+
           return false
         } else {
           return true
         }
+
       }
     },
     methods: {
       addItem () {
         let picked = parseInt(this.picked, 10) || 0
-        var pickedPosition = this.cindex
-        if (picked === 0) { return }
+
+        // check if they picked a message
+        console.log('they did pick a message test ' + this.isPicked)
+
+        if (this.isPicked) {
+          this.validation.pickDoesntExists = false
+        } else {
+          this.validation.pickDoesntExists = true
+          return
+        }
+
         // check if the position is open
-        console.log(this.cindex + ' ' + this.isValidPosition + ' ' + picked)
+        console.log(this.cindex + ' ' + this.isValidPosition)
         if (this.isValidPosition) {
-          path.child(pickedPosition).set({
-            position: this.cindex,
+          path.push({
             msg: picked,
-            isDim: true
+            position: this.cindex
           }, function (error) {
             if (error) {
               alert('db error: ' + error)
             }
           })
+
           // reset message pick and open dialog
           this.picked = {}
           this.open = false
+        } else {
+
+          // tell them the position was taken
+          this.validation.positionFull = true
         }
       }
     }
@@ -116,7 +114,9 @@
 </script>
 
 <style lang="less">
-.formWrap {
-  font-size: 30px;
+.hello {
+  h1 {
+    font-size: 50px;
+  }
 }
 </style>
