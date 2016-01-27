@@ -106,6 +106,7 @@
             }
           })
           // reset message pick and open dialog
+          this.$dispatch('test')
           this.picked = {}
           this.open = false
         }
