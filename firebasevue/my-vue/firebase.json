@@ -1,0 +1,9 @@
+{
+  "firebase": "6car",
+  "public": "underConstruction",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

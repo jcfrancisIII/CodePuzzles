@@ -10,13 +10,13 @@
   div.blockWrap.row
     div(
       class='block'
-      v-on:click='boxClick'
       v-for='n in store'
       v-bind:index='$index'
       v-bind:class='{"dim": n.isDim, "selected": selectBox}'
+      track-by='$index'
+      v-on:click='toggleForm($index)'
     )
-      div(class='popout')
-        {{n.msg === 0 ? '' : ''}}
+      div(class='popout' v-if='n.msg')
         {{n.msg === 1 ? 'Go Trevor' : ''}}
         {{n.msg === 2 ? 'Yo Trev' : ''}}
         {{n.msg === 3 ? 'Hi T' : ''}}
@@ -42,13 +42,14 @@ export default {
     PopInput
   },
   computed: {
+    hasMsg (n) {
+      console.log(n.msg)
+    }
   },
   methods: {
-    boxClick (e) {
-      this.toggleForm(e)
-    },
-    toggleForm (e) {
-      this.pindex = parseInt(e.target.attributes.index.value, 10)
+    toggleForm (n) {
+      console.log(n)
+      this.pindex = n
       if (this.open) {
         return false
       }

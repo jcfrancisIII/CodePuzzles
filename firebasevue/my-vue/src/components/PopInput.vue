@@ -34,7 +34,9 @@
 </template>
 
 <script>
-  import {path} from '.././assets/GetData.js'
+  import Firebase from 'firebase'
+  // set up the path again for writing
+  var path = new Firebase('https://6car.firebaseio.com/msgs')
 
   export default {
     props: {
@@ -66,11 +68,10 @@
       },
       isValidPosition () {
         var pickedPosition = this.cindex
-        console.log(pickedPosition)
+        console.log(`picked position ${pickedPosition}`)
         // check database for matching position with existing message (truthy if it doesnt match)
         var positionBool = this.store.some(function (item) {
           if (pickedPosition === item.position && item.msg === 0) {
-            console.log('true msg ' + item.msg + ' position ' + item.position)
             return true
           }
         })
@@ -80,7 +81,7 @@
       nonePicked () {
         let picked = parseInt(this.picked, 10) || 0
 
-        console.log(picked)
+        console.log(`nonepicked computed in popinput ${picked}`)
         if (picked) {
           return false
         } else {
@@ -94,7 +95,7 @@
         var pickedPosition = this.cindex
         if (picked === 0) { return }
         // check if the position is open
-        console.log(this.cindex + ' ' + this.isValidPosition + ' ' + picked)
+        console.log('add item in popinput. position:' + this.cindex + ' validity: ' + this.isValidPosition + ' pick: ' + picked)
         if (this.isValidPosition) {
           path.child(pickedPosition).set({
             position: this.cindex,
@@ -106,7 +107,7 @@
             }
           })
           // reset message pick and open dialog
-          this.$dispatch('test')
+          // this.$dispatch('test')
           this.picked = {}
           this.open = false
         }
