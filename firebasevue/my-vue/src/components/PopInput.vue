@@ -107,9 +107,11 @@
             }
           })
           // reset message pick and open dialog
-          // this.$dispatch('test')
           this.picked = {}
           this.open = false
+          // set local store for next visit
+          localStorage.setItem('localNoobTest', 'false')
+          this.$dispatch('noob')
         }
       }
     }

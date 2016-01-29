@@ -1,9 +1,16 @@
 <template lang="jade">
   div(class="appWrap")
+    div(
+      class='messageWrap initial-message'
+      v-if='completeNoob'
+    )
+      div(class='messageBlock').
+        Help us reveal the Trevor Bayne 6 Car
     pop-triggers(
       v-bind:store='store'
       v-bind:totalblocks='totalblocks'
       v-bind:w='w'
+      v-bind:noob='noob'
     )
     pre {{$data | json}}
 </template>
@@ -11,6 +18,7 @@
 <script>
 import Firebase from 'firebase'
 import PopTriggers from './components/PopTriggers'
+import {localNoobTest} from './assets/localNoobTest.js'
 
 var Msgs = new Firebase('https://6car.firebaseio.com/msgs')
 
@@ -57,25 +65,24 @@ export default {
     return {
       store: store.fetch(),
       totalblocks: 3000,
-      w: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+      w: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+      noob: localNoobTest.isNoob(),
+      completeNoob: localNoobTest.isCompleteNoob()
     }
   },
   components: {
     PopTriggers
   },
   events: {
-    test () {
-      // this.store = store.fetch()
+    noob () {
+      this.noob = localNoobTest.isNoob()
+      console.log('dispatched event noob. insure consistent values: ' + this.noob + ' vs ' + localNoobTest.isNoob())
     }
   },
-  watch: {
-    store: {
-      handler (val, oVal) {
-        // console.log('handled ' + JSON.stringify(val) + ' old \n \n' + JSON.stringify(oVal))
-      }
-    }
+  ready () {
+    // Set completeNoob to false after inial visit
+    localStorage.setItem('localCompleteNoobTest', 'false')
   }
-
 }
 </script>
 

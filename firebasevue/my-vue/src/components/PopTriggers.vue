@@ -1,12 +1,11 @@
 <template lang='jade'>
-  template(v-if='open')
-      pop-input(
-        v-bind:cindex='pindex'
-        v-bind:open.sync='open'
-        v-bind:store='store'
-        v-bind:nubBoxes='nubBoxes'
-      )
-    div(v-if='!open') Select a square to claim
+  template(v-if='noob && open')
+    pop-input(
+      v-bind:cindex='pindex'
+      v-bind:open.sync='open'
+      v-bind:store='store'
+      v-bind:nubBoxes='nubBoxes'
+    )
   div.blockWrap.row
     div(
       class='block'
@@ -29,7 +28,8 @@ export default {
   props: {
     store: Array,
     w: Number,
-    totalblocks: Number
+    totalblocks: Number,
+    noob: Boolean
   },
   data () {
     return {
