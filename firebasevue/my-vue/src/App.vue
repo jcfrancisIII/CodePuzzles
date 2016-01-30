@@ -6,6 +6,12 @@
     )
       div(class='messageBlock').
         Help us reveal the Trevor Bayne 6 Car
+    new-pop-triggers(
+      v-bind:store='store'
+      v-bind:totalblocks='totalblocks'
+      v-bind:w='w'
+      v-bind:noob='noob'
+    )
     pop-triggers(
       v-bind:store='store'
       v-bind:totalblocks='totalblocks'
@@ -17,6 +23,7 @@
 
 <script>
 import Firebase from 'firebase'
+import NewPopTriggers from './components/NewPopTriggers'
 import PopTriggers from './components/PopTriggers'
 import {localNoobTest} from './assets/localNoobTest.js'
 
@@ -43,7 +50,7 @@ var store = {
     return substore
   }
 }
-/*
+/* set up the store with all of the blocks needed to make the car
 var store = []
 var totalblocks = 3000
 
@@ -60,18 +67,48 @@ Msgs.set(store)
 export {totalblocks}
 */
 
+// helper style funciton
+var setStyle = function (obj, propertyObj) {
+  for (var property in propertyObj) {
+    obj.style[property] = propertyObj[property]
+  }
+}
+// end helper style funciton
+//
+
 export default {
   data () {
     return {
       store: store.fetch(),
       totalblocks: 3000,
-      w: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+      w: this.measureW(),
       noob: localNoobTest.isNoob(),
       completeNoob: localNoobTest.isCompleteNoob()
     }
   },
   components: {
-    PopTriggers
+    PopTriggers,
+    NewPopTriggers
+  },
+  methods: {
+    measureW () {
+      this.$nextTick(function () {
+        var wWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+        // measure scrollbar
+        var scrollDiv = document.createElement('div')
+        setStyle(scrollDiv, { width: '100px', height: '100px', overflow: 'scroll', position: 'absolute', top: '-9999px'})
+        document.body.appendChild(scrollDiv)
+
+        var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
+        document.body.removeChild(scrollDiv)
+        // measure scrollbar
+        //
+
+        // Fix math for the car pieces to fit the scrollbar
+        this.w = wWidth - scrollbarWidth
+        console.log('window ' + this.w)
+      })
+    }
   },
   events: {
     noob () {
@@ -82,11 +119,13 @@ export default {
   ready () {
     // Set completeNoob to false after inial visit
     localStorage.setItem('localCompleteNoobTest', 'false')
+
   }
 }
 </script>
 
 <style lang='less'>
+html { overflow-y: scroll; }
 body {
   font-family: Helvetica, sans-serif;
   font-size: 20px;
