@@ -1,21 +1,29 @@
 <template lang='jade'>
   div(
     class='carPiece'
-    v-el='carPiece'
     v-bind:style='addstyles'
+    v-on:click='toggleForm(n)'
+    v-bind:class='{"hoverP": n.isDim, "selected": this.selected}'
   )
     div.carX
+    //-
+      div(class='popout' v-if='n.msg')
+        {{n.msg === 1 ? 'Sweeeet ride, TB!' : ''}}
+        {{n.msg === 2 ? 'Here’s to a winning season!' : ''}}
+        {{n.msg === 3 ? 'Can’t wait for race day!' : ''}}
+        {{n.msg === 4 ? 'Tear is up, Trevor!' : ''}}
 </template>
 
 <script>
 
 export default {
   props: {
-    cIndex: Number,
+    cindex: Number,
     open: Boolean,
     carstylea: Object,
     n: Object,
-    totalblocks: Number
+    totalblocks: Number,
+    selected: Boolean
   },
   data () {
     return {
@@ -71,8 +79,11 @@ export default {
   },
   methods: {
     toggleForm (n) {
-      console.log('box clicked to claim' + n)
-      this.pindex = n
+
+      console.log('box clicked to claim' + n.isDim)
+      // set parent index to pass to db input
+      this.$parent.pindex = n.position
+
       if (this.open) {
         return false
       }
@@ -90,7 +101,7 @@ export default {
   box-sizing: border-box;
   background-repeat: no-repeat;
   overflow: hidden;
-  background-image: url('../imgs/892231.jpg')
+  background-image: url('../imgs/998822.jpg')
 }
 .carPiece.hoverP {
   background-image: url('../imgs/892231.jpg') !important;
@@ -110,25 +121,42 @@ export default {
   overflow: hidden;
 }
 .carX:before {
-    content: 'A';
-    font-size: 100%;
-    line-height: 100%;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    color: rgba(255,255,255,0.1);
-    font-weight: 300;
-    font-style: oblique;
+  content: 'A';
+  font-size: 108%;
+  line-height: 100%;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  color: rgba(255,255,255,0.1);
+  font-weight: 300;
+  font-style: oblique;
+  font-family: serif;
+  text-align: center;
+  margin-left: -2px;
 }
-.carX.hoverX {
+.carPiece.hoverP .carX {
   background-color: rgba(0,0,0,0);
   border: 1px solid rgba(255,255,255,0);
 }
-.carX.hoverX:before {
+.carPiece.hoverP .carX:before {
     content: '';
 }
-.carX:hover {
+.carX:hover, .carPiece.selected .carX {
   border: 1px solid rgba(255,255,255,1);
+}
+.popout {
+  position: absolute;
+  width: 300px;
+  line-height: 50px;
+  bottom: -50px;
+  box-sizing: border-box;
+  font-size: 30px;
+  right: 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 </style>

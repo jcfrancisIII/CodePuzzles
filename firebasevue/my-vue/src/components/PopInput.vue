@@ -1,36 +1,34 @@
 <template lang='jade'>
-  div(class='formWrap')
-    form(id='form', v-on:submit.prevent='addItem')
-      input(
-        type='radio'
-        id='one'
-        value='1'
-        v-model='picked'
-        checked=false
-      )
-      label(for='one') Go Trevor
-      input(
-        type='radio'
-        id='two'
-        value='2'
-        v-model='picked'
-        checked=false
-      )
-      label(for='two') Yo Trev
-      input(
-        type='radio'
-        id='three'
-        value='3'
-        v-model='picked'
-        checked=false
-      )
-      label(for='three') Hi T
-      div {{cindex}}
-      div {{said}}
-      input(type='submit', value='Claim it')
-      ul.errors
-        li(v-show='validation.positionFull') Oops, someone claimed your square...
-          button(v-on:click='open = false') Claim a different square
+div.modal-mask
+  div.modal-wrapper
+    div.modal-container
+      form(id='form', v-on:submit.prevent='addItem')
+        div.selectWrap
+          //-
+            select(v-model='picked')
+              option(
+                id='one'
+                value='1'
+                selected
+              ) Sweeeet ride, TB!
+              option(
+                id='two'
+                value='2'
+              ) Here’s to a winning season!
+              option(
+                id='three'
+                value='3'
+              ) Can’t wait for race day!
+              option(
+                id='four'
+                value='4'
+              ) Tear is up, Trevor!
+            div {{cindex}}
+            div {{said}}
+          input(type='submit', value='REVEAL THIS SPOT')
+          ul.errors
+            li(v-show='validation.positionFull') Oops, someone claimed your square...
+              button(v-on:click='open = false') Claim a different square
 </template>
 
 <script>
@@ -59,11 +57,13 @@
         let picked = this.picked
 
         if (picked === '1') {
-          return 'Go Trevor'
+          return 'Sweeeet ride, TB!'
         } else if (picked === '2') {
-          return 'Yo Trev'
+          return 'Here’s to a winning season!'
         } else if (picked === '3') {
-          return 'Hi T'
+          return 'Can’t wait for race day!'
+        } else if (picked === '4') {
+          return 'Tear is up, Trevor!'
         }
       },
       isValidPosition () {
@@ -120,7 +120,29 @@
 </script>
 
 <style lang="less">
-.formWrap {
-  font-size: 30px;
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+.modal-container {
+  width: 300px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
 }
 </style>

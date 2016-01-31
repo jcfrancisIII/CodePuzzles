@@ -16,9 +16,10 @@
       v-on:click='toggleForm($index)'
     )
       div(class='popout' v-if='n.msg')
-        {{n.msg === 1 ? 'Go Trevor' : ''}}
-        {{n.msg === 2 ? 'Yo Trev' : ''}}
-        {{n.msg === 3 ? 'Hi T' : ''}}
+        {{n.msg === 1 ? 'Sweeeet ride, TB!' : ''}}
+        {{n.msg === 2 ? 'Here’s to a winning season!' : ''}}
+        {{n.msg === 3 ? 'Can’t wait for race day!' : ''}}
+        {{n.msg === 4 ? 'Tear is up, Trevor!' : ''}}
 </template>
 
 <script>

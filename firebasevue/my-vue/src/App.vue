@@ -1,24 +1,21 @@
 <template lang="jade">
   div(class="appWrap")
     div(
-      class='messageWrap initial-message'
+      class='messageWrap initial-message modal-mask'
       v-if='completeNoob'
+      transition='modal'
     )
-      div(class='messageBlock').
-        Help us reveal the Trevor Bayne 6 Car
+      div.modal-wrapper
+        div.modal-container
+          div(class='messageBlock').
+            Help us reveal the Trevor Bayne 6 Car
+          a(v-on:click.prevent='closeNoob') CLAIM YOURS
     pop-blocks-wrap(
       v-bind:store='store'
       v-bind:totalblocks='totalblocks'
       v-bind:w='w'
       v-bind:noob='noob'
     )
-    //-
-      pop-triggers(
-        v-bind:store='store'
-        v-bind:totalblocks='totalblocks'
-        v-bind:w='w'
-        v-bind:noob='noob'
-      )
     pre {{$data | json}}
 </template>
 
@@ -91,6 +88,8 @@ export default {
     PopTriggers,
     PopBlocksWrap
   },
+  computed: {
+  },
   methods: {
     measureW () {
       this.$nextTick(function () {
@@ -110,6 +109,10 @@ export default {
         this.w = wWidth - scrollbarWidth
         console.log('window ' + this.w)
       })
+    },
+    closeNoob () {
+      console.log('complete noob close' + this.completeNoob)
+      this.completeNoob = !this.completeNoob
     }
   },
   events: {
@@ -133,6 +136,11 @@ body {
   font-size: 20px;
   width: 100%;
   height: 100%;
+  color: #fff;
+  background: #060608;
+}
+pre {
+  color: #fff;
 }
 .row {
   width: 100%;
@@ -150,7 +158,30 @@ body {
     clear: both;
   }
 }
-.appWrap {
-  margin-top: 50px;
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .97);
+  display: table;
+  transition: opacity .3s ease;
+}
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+.modal-container {
+  width: 300px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #333;
 }
 </style>

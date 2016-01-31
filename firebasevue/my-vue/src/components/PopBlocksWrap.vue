@@ -1,23 +1,24 @@
 <template lang='jade'>
+  template(v-if='noob && open', transition='modal')
+    pop-input(
+      v-bind:cindex='pindex'
+      v-bind:open.sync='open'
+      v-bind:store='store'
+      v-bind:nubBoxes='nubBoxes'
+    )
   div#carWrapWrap(v-bind:style='stylewrapwrap')
-    template(v-if='noob && open')
-      pop-input(
-        v-bind:cindex='pindex'
-        v-bind:open.sync='open'
-        v-bind:store='store'
-        v-bind:nubBoxes='nubBoxes'
-      )
     div#carWrap.row(v-bind:style='stylewrap')
       pop-blocks(
         v-for='n in store'
         v-bind:n='n'
-        v-bind:cindex='pindex'
-        v-bind:open='open'
+        v-bind:open.sync='open'
         v-bind:totalblocks='totalblocks'
         v-bind:carstylea='carstylea'
         v-bind:index='$index'
         track-by='$index'
-        v-ref=carpieces
+        v-bind:cindex='n.position'
+        v-bind:selected='selected'
+        v-bind:ref=cpieces
       )
 </template>
 
@@ -35,7 +36,8 @@ export default {
   data () {
     return {
       open: false,
-      pindex: 0
+      pindex: 0,
+      selected: false
     }
   },
   components: {
@@ -111,16 +113,6 @@ export default {
       }
       this.open = !this.open
     }
-  },
-  ready () {
-    var allPieces = document.getElementsByClassName('carPiece')
-    // var somePieces
-    // var wrapper = document.createElement('div').classList.add('row')
-
-    for (let i = 0; i < allPieces.length; i++) {
-      // Array.prototype.slice.call(allPieces, 0, 8)
-    }
-
   }
 }
 
