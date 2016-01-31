@@ -6,24 +6,25 @@
     )
       div(class='messageBlock').
         Help us reveal the Trevor Bayne 6 Car
-    new-pop-triggers(
+    pop-blocks-wrap(
       v-bind:store='store'
       v-bind:totalblocks='totalblocks'
       v-bind:w='w'
       v-bind:noob='noob'
     )
-    pop-triggers(
-      v-bind:store='store'
-      v-bind:totalblocks='totalblocks'
-      v-bind:w='w'
-      v-bind:noob='noob'
-    )
+    //-
+      pop-triggers(
+        v-bind:store='store'
+        v-bind:totalblocks='totalblocks'
+        v-bind:w='w'
+        v-bind:noob='noob'
+      )
     pre {{$data | json}}
 </template>
 
 <script>
 import Firebase from 'firebase'
-import NewPopTriggers from './components/NewPopTriggers'
+import PopBlocksWrap from './components/PopBlocksWrap'
 import PopTriggers from './components/PopTriggers'
 import {localNoobTest} from './assets/localNoobTest.js'
 
@@ -81,19 +82,20 @@ export default {
     return {
       store: store.fetch(),
       totalblocks: 3000,
-      w: this.measureW(),
+      w: this.measureW() || 0,
       noob: localNoobTest.isNoob(),
       completeNoob: localNoobTest.isCompleteNoob()
     }
   },
   components: {
     PopTriggers,
-    NewPopTriggers
+    PopBlocksWrap
   },
   methods: {
     measureW () {
       this.$nextTick(function () {
         var wWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+
         // measure scrollbar
         var scrollDiv = document.createElement('div')
         setStyle(scrollDiv, { width: '100px', height: '100px', overflow: 'scroll', position: 'absolute', top: '-9999px'})
