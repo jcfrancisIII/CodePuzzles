@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     closeNoob () {
-      console.log('complete noob close ' + this.completenoob)
+      // console.log('complete noob close ' + this.completenoob)
       this.completenoob = false
       localStorage.setItem('localCompleteNoobTest', 'false')
     }
@@ -49,6 +49,7 @@ export default {
   padding: 0;
   background-color: #e2e2e2;
   border: 3px solid #e2e2e2;
+  box-sizing: border-box;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
@@ -111,8 +112,8 @@ button {
 button:active {
   background-color: #F13C12;
   background-image: none;
-  -moz-box-shadow: inset 0 0px 4px rgba(0, 0, 0, 0.15), 2px 2px 6px rgba(0, 0, 0, 0.6);
-  -webkit-box-shadow: inset 0 0px 4px rgba(0, 0, 0, 0.15), 2px 2px 6px rgba(0, 0, 0, 0.6);
-  box-shadow: inset 0 0px 4px rgba(0, 0, 0, 0.15), 2px 2px 6px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: inset 0 0px 4px rgba(0, 0, 0, 0.15), 1px 1px 4px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: inset 0 0px 4px rgba(0, 0, 0, 0.15), 1px 1px 4px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0px 4px rgba(0, 0, 0, 0.15), 1px 1px 4px rgba(0, 0, 0, 0.6);
 }
 </style>

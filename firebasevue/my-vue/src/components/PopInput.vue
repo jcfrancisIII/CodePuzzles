@@ -6,7 +6,10 @@ div(
   )
   div.modal-wrapper
     div.modal-container
-      a(class='closeBtn') ×
+      a(
+        class='closeBtn'
+        v-on:click='closeWindow'
+      ) ×
       form(id='form', v-on:submit.prevent='addItem')
         div.selectWrap
           //-
@@ -73,7 +76,7 @@ div(
       },
       isValidPosition () {
         var pickedPosition = this.cindex
-        console.log(`picked position ${pickedPosition}`)
+        // console.log(`picked position ${pickedPosition}`)
         // check database for matching position with existing message (truthy if it doesnt match)
         var positionBool = this.store.some(function (item) {
           if (pickedPosition === item.position && item.msg === 0) {
@@ -86,7 +89,7 @@ div(
       nonePicked () {
         let picked = parseInt(this.picked, 10) || 0
 
-        console.log(`nonepicked computed in popinput ${picked}`)
+        // console.log(`nonepicked computed in popinput ${picked}`)
         if (picked) {
           return false
         } else {
@@ -96,16 +99,16 @@ div(
     },
     methods: {
       addItem () {
-        console.log(this.picked)
-        console.log(this.cindex)
+        // console.log(this.picked)
+        // console.log(this.cindex)
         let picked = parseInt(this.picked, 10) || 0
         var pickedPosition = this.cindex
         // remove code for message if (picked === 0) { return }
-        console.log('message blank' + picked)
-        console.log('position' + this.cindex)
+        // console.log('message blank' + picked)
+        // console.log('position' + this.cindex)
 
         // check if the position is open
-        console.log('add item in popinput. position:' + this.cindex + ' validity: ' + this.isValidPosition + ' pick: ' + picked)
+        // console.log('add item in popinput. position:' + this.cindex + ' validity: ' + this.isValidPosition + ' pick: ' + picked)
         if (this.isValidPosition) {
           path.child(pickedPosition).set({
             position: this.cindex,
@@ -133,4 +136,24 @@ div(
 </script>
 
 <style lang="less">
+  .modal-container {
+    position: relative;
+    .closeBtn {
+      font-size: 33px;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      color: #333;
+      padding: 9px;
+      transition: all 0.3s ease;
+      line-height: 0.5em;
+      &:hover {
+        cursor: pointer;
+        color: #ff3e2b;
+      }
+    }
+    ul {
+      margin: 0;
+    }
+  }
 </style>

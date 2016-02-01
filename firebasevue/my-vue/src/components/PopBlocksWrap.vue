@@ -9,6 +9,7 @@
       )
     div#carWrapWrap(v-bind:style='stylewrapwrap')
       div#carWrap.row(v-bind:style='stylewrap')
+        div(class='fullImage', v-if='imgFull')
         pop-blocks(
           v-for='n in store'
           v-bind:n='n'
@@ -21,7 +22,6 @@
           v-bind:selected='selected'
           v-bind:ref=cpieces
         )
-        div(class='fullImage', v-if='imgFull')
 </template>
 
 <script>
@@ -60,7 +60,7 @@ export default {
 
       var blockSide = Math.sqrt(blockArea)
       var wd = bgW - (blockSide * 2)
-      var ht = bgH - (blockSide * 3)
+      var ht = bgH - (blockSide * 3.3)
 
       return {
         'width': wd + 'px',
@@ -105,16 +105,9 @@ export default {
         'padding-bottom': blockPerc.toFixed(3) + '%',
         'background-size': bgW.toFixed(3) + 'px ' + bgH.toFixed(3) + 'px'
       }
-    }
-  },
-  methods: {
-    toggleForm (n) {
-      console.log('box clicked to claim' + n)
-      this.pindex = n
-      if (this.open) {
-        return false
-      }
-      this.open = !this.open
+    },
+    ready () {
+      // console.log('pop block wrap ready noob: ' + this.noob)
     }
   }
 }

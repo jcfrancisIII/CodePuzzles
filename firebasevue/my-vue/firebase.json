@@ -1,6 +1,6 @@
 {
   "firebase": "6car",
-  "public": "underConstruction",
+  "public": "dist",
   "ignore": [
     "firebase.json",
     "**/.*",

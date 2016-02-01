@@ -9,7 +9,6 @@
       v-bind:w='w'
       v-bind:noob='noob'
     )
-    pre {{$data | json}}
 </template>
 
 <script>
@@ -33,31 +32,28 @@ var store = {
       var itemKey = snapshot.key()
       itemKey = parseInt(itemKey, 10)
       var itemVal = snapshot.val()
-      console.log(`changed item key ${JSON.stringify(substore[itemKey])}`)
+      // console.log(`changed item key ${JSON.stringify(substore[itemKey])}`)
       substore.$set(itemKey, itemVal)
-      console.log(`changed item key ${JSON.stringify(substore[itemKey])}`)
+      // console.log(`changed item key ${JSON.stringify(substore[itemKey])}`)
     })
 
     return substore
   }
 }
 /* set up the store with all of the blocks needed to make the car
-var store = []
+var storeB = []
 var totalblocks = 3000
 
 for (var i = 0; i < totalblocks; i++) {
-  store.push({
+  storeB.push({
     position: i,
     msg: 0,
     isDim: false
   })
 }
 
-Msgs.set(store)
-
-export {totalblocks}
+Msgs.set(storeB)
 */
-
 // helper style funciton
 var setStyle = function (obj, propertyObj) {
   for (var property in propertyObj) {
@@ -100,19 +96,21 @@ export default {
 
         // Fix math for the car pieces to fit the scrollbar
         this.w = wWidth - scrollbarWidth
-        console.log('window ' + this.w)
+        // console.log('window ' + this.w)
       })
     }
   },
   events: {
     noob () {
-      console.log('dispatched event from popinput. insure changed values: ' + this.noob + ' vs ' + localNoobTest.isNoob())
+      // console.log('dispatched event from popinput. insure changed values: ' + this.noob + ' vs ' + localNoobTest.isNoob())
       this.noob = localNoobTest.isNoob()
     }
   },
   ready () {
     // Set completeNoob to false after inial visit
-    this.completenoob = localNoobTest.isCompleteNoob()
+    // console.log('app ready competenoob' + !!localNoobTest.isCompleteNoob())
+    // console.log('app ready noob' + !!localNoobTest.isNoob())
+    this.completenoob = !!localNoobTest.isCompleteNoob()
   }
 }
 </script>
@@ -125,7 +123,7 @@ body {
   width: 100%;
   height: 100%;
   color: #fff;
-  background: #060608;
+  background: #fff;
 }
 pre {
   color: #fff;

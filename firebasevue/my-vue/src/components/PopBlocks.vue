@@ -79,16 +79,16 @@ export default {
   },
   methods: {
     toggleForm (n) {
+      if (n.isDim === false) {
+        // console.log('box clicked to claim ' + n.isDim)
+        // set parent index to pass to db input
+        this.$parent.pindex = n.position
 
-      console.log('box clicked to claim ' + n.isDim)
-      // set parent index to pass to db input
-      this.$parent.pindex = n.position
-
-      console.log('box clicked to claim ' + n.isDim)
-      if (this.open) {
-        return false
+        if (this.open) {
+          return false
+        }
+        this.open = !this.open
       }
-      this.open = !this.open
     }
   }
 }
@@ -108,6 +108,14 @@ export default {
   background-image: url('../imgs/998822.jpg');
   transition: 0.6s;
   transform-style: preserve-3d;
+
+  cursor: default;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently */
 }
 .carPiece.hoverP {
   background-image: url('../imgs/892231.jpg') !important;
@@ -128,7 +136,7 @@ export default {
   overflow: hidden;
 }
 .carX:before {
-  content: 'A';
+  content: '';
   font-size: 108%;
   line-height: 100%;
   position: absolute;
@@ -137,8 +145,7 @@ export default {
   width: 100%;
   color: rgba(255,255,255,0.1);
   font-weight: 300;
-  font-style: oblique;
-  font-family: serif;
+  font-family: sans-serif;
   text-align: center;
   margin-left: -2px;
 }
@@ -165,5 +172,10 @@ export default {
   color: #fff;
   opacity: 0;
   transition: all 0.3s ease;
+}
+@media only screen and (min-width : 1600px) {
+  .carX:before {
+    line-height: 126%;
+  }
 }
 </style>
