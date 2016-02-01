@@ -1,7 +1,12 @@
 <template lang='jade'>
-div.modal-mask
+div(
+    class='modal-mask'
+    v-show='open'
+    transition='modal'
+  )
   div.modal-wrapper
     div.modal-container
+      a(class='closeBtn') ×
       form(id='form', v-on:submit.prevent='addItem')
         div.selectWrap
           //-
@@ -25,7 +30,7 @@ div.modal-mask
               ) Tear is up, Trevor!
             div {{cindex}}
             div {{said}}
-          input(type='submit', value='REVEAL THIS SPOT')
+          button REVEAL THIS SPOT
           ul.errors
             li(v-show='validation.positionFull') Oops, someone claimed your square...
               button(v-on:click='open = false') Claim a different square
@@ -91,9 +96,14 @@ div.modal-mask
     },
     methods: {
       addItem () {
+        console.log(this.picked)
+        console.log(this.cindex)
         let picked = parseInt(this.picked, 10) || 0
         var pickedPosition = this.cindex
-        if (picked === 0) { return }
+        // remove code for message if (picked === 0) { return }
+        console.log('message blank' + picked)
+        console.log('position' + this.cindex)
+
         // check if the position is open
         console.log('add item in popinput. position:' + this.cindex + ' validity: ' + this.isValidPosition + ' pick: ' + picked)
         if (this.isValidPosition) {
@@ -113,6 +123,9 @@ div.modal-mask
           localStorage.setItem('localNoobTest', 'false')
           this.$dispatch('noob')
         }
+      },
+      closeWindow () {
+        this.open = false
       }
     }
   }
@@ -120,29 +133,4 @@ div.modal-mask
 </script>
 
 <style lang="less">
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
 </style>

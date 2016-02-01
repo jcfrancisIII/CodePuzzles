@@ -1,25 +1,27 @@
 <template lang='jade'>
-  template(v-if='noob && open', transition='modal')
-    pop-input(
-      v-bind:cindex='pindex'
-      v-bind:open.sync='open'
-      v-bind:store='store'
-      v-bind:nubBoxes='nubBoxes'
-    )
-  div#carWrapWrap(v-bind:style='stylewrapwrap')
-    div#carWrap.row(v-bind:style='stylewrap')
-      pop-blocks(
-        v-for='n in store'
-        v-bind:n='n'
+  div.interactWrap
+    template(v-if='noob && open')
+      pop-input(
+        v-bind:cindex='pindex'
         v-bind:open.sync='open'
-        v-bind:totalblocks='totalblocks'
-        v-bind:carstylea='carstylea'
-        v-bind:index='$index'
-        track-by='$index'
-        v-bind:cindex='n.position'
-        v-bind:selected='selected'
-        v-bind:ref=cpieces
+        v-bind:store='store'
+        v-bind:nubBoxes='nubBoxes'
       )
+    div#carWrapWrap(v-bind:style='stylewrapwrap')
+      div#carWrap.row(v-bind:style='stylewrap')
+        pop-blocks(
+          v-for='n in store'
+          v-bind:n='n'
+          v-bind:open.sync='open'
+          v-bind:totalblocks='totalblocks'
+          v-bind:carstylea='carstylea'
+          v-bind:index='$index'
+          track-by='$index'
+          v-bind:cindex='n.position'
+          v-bind:selected='selected'
+          v-bind:ref=cpieces
+        )
+        div(class='fullImage', v-if='imgFull')
 </template>
 
 <script>
@@ -31,7 +33,8 @@ export default {
     store: Array,
     w: Number,
     totalblocks: Number,
-    noob: Boolean
+    noob: Boolean,
+    imgFull: Boolean
   },
   data () {
     return {
@@ -143,5 +146,4 @@ export default {
     width: 100%;
   }
 }
-
 </style>

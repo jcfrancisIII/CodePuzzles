@@ -1,15 +1,8 @@
 <template lang="jade">
   div(class="appWrap")
-    div(
-      class='messageWrap initial-message modal-mask'
-      v-if='completeNoob'
-      transition='modal'
+    pop-start-message(
+      v-bind:completenoob.sync='completenoob'
     )
-      div.modal-wrapper
-        div.modal-container
-          div(class='messageBlock').
-            Help us reveal the Trevor Bayne 6 Car
-          a(v-on:click.prevent='closeNoob') CLAIM YOURS
     pop-blocks-wrap(
       v-bind:store='store'
       v-bind:totalblocks='totalblocks'
@@ -21,8 +14,8 @@
 
 <script>
 import Firebase from 'firebase'
+import PopStartMessage from './components/PopStartMessage'
 import PopBlocksWrap from './components/PopBlocksWrap'
-import PopTriggers from './components/PopTriggers'
 import {localNoobTest} from './assets/localNoobTest.js'
 
 var Msgs = new Firebase('https://6car.firebaseio.com/msgs')
@@ -81,12 +74,12 @@ export default {
       totalblocks: 3000,
       w: this.measureW() || 0,
       noob: localNoobTest.isNoob(),
-      completeNoob: localNoobTest.isCompleteNoob()
+      completenoob: false
     }
   },
   components: {
-    PopTriggers,
-    PopBlocksWrap
+    PopBlocksWrap,
+    PopStartMessage
   },
   computed: {
   },
@@ -109,22 +102,17 @@ export default {
         this.w = wWidth - scrollbarWidth
         console.log('window ' + this.w)
       })
-    },
-    closeNoob () {
-      console.log('complete noob close' + this.completeNoob)
-      this.completeNoob = !this.completeNoob
     }
   },
   events: {
     noob () {
+      console.log('dispatched event from popinput. insure changed values: ' + this.noob + ' vs ' + localNoobTest.isNoob())
       this.noob = localNoobTest.isNoob()
-      console.log('dispatched event noob. insure consistent values: ' + this.noob + ' vs ' + localNoobTest.isNoob())
     }
   },
   ready () {
     // Set completeNoob to false after inial visit
-    localStorage.setItem('localCompleteNoobTest', 'false')
-
+    this.completenoob = localNoobTest.isCompleteNoob()
   }
 }
 </script>
@@ -157,31 +145,5 @@ pre {
   &:after {
     clear: both;
   }
-}
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .97);
-  display: table;
-  transition: opacity .3s ease;
-}
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-  color: #333;
 }
 </style>

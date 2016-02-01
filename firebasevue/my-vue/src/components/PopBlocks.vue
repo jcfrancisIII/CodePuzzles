@@ -80,10 +80,11 @@ export default {
   methods: {
     toggleForm (n) {
 
-      console.log('box clicked to claim' + n.isDim)
+      console.log('box clicked to claim ' + n.isDim)
       // set parent index to pass to db input
       this.$parent.pindex = n.position
 
+      console.log('box clicked to claim ' + n.isDim)
       if (this.open) {
         return false
       }
@@ -95,16 +96,22 @@ export default {
 </script>
 
 <style lang="less">
+.carWrap {
+  perspective: 1000
+}
 .carPiece {
   float: left;
   position: relative;
   box-sizing: border-box;
   background-repeat: no-repeat;
   overflow: hidden;
-  background-image: url('../imgs/998822.jpg')
+  background-image: url('../imgs/998822.jpg');
+  transition: 0.6s;
+  transform-style: preserve-3d;
 }
 .carPiece.hoverP {
   background-image: url('../imgs/892231.jpg') !important;
+  transform: rotateY(360deg);
 }
 .carX {
   position: absolute;
