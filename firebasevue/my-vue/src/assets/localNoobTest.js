@@ -1,6 +1,6 @@
 var localNoobTest = {
   isNoob () {
-
+    /* for testing true
     var getLocalNoob = localStorage.getItem('localNoobTest')
     // console.log('from local store ' + JSON.stringify(getLocalNoob))
 
@@ -13,10 +13,11 @@ var localNoobTest = {
       // console.log(`no isNoob`)
       return false
     }
-    /* for testing true */
+    */
+    return false
   },
   isCompleteNoob () {
-
+    /* for testing true
     var getLocalCompleteNoob = localStorage.getItem('localCompleteNoobTest')
     // console.log('from local store ' + JSON.stringify(getLocalCompleteNoob))
 
@@ -29,10 +30,11 @@ var localNoobTest = {
       // console.log(`no isCompleteNoob`)
       return false
     }
-    /* for testing true */
+     */
+    return true
   }
 }
-// console.log(`is a noob ${localNoobTest.isNoob()}`)
+console.log(`is a noob ${localNoobTest.isNoob()}`)
 // console.log(`is a completenoob ${localNoobTest.isCompleteNoob()}`)
 
 export {localNoobTest}

@@ -7,9 +7,14 @@ div(
   div.modal-wrapper
     div.modal-container
       div.messageBlock
-        h1 Trevor Bayne’s No. 6 AdvoCare car is here.
-        h3 Pick a square and help be a part of the big reveal!
-      button(class='modal-btn', v-on:click.prevent='closeNoob') CLAIM YOURS
+          h1 Thanks to everyone that helped reveal the car!
+        button(class='modal-btn', v-on:click.prevent='closeNoob') ENTER
+      //-
+        div.messageBlock
+          h1 Trevor Bayne’s No. 6 AdvoCare car is here.
+          h3 Pick a square and help be a part of the big reveal!
+        button(class='modal-btn', v-on:click.prevent='closeNoob') CLAIM YOURS
+
 </template>
 
 <script>
