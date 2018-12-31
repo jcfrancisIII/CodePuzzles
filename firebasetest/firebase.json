@@ -1,9 +1,0 @@
-{
-  "firebase": "6car",
-  "public": "/",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ]
-}
